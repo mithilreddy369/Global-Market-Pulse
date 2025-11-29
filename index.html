@@ -83,12 +83,16 @@
       flex-shrink: 0; 
       height: 6vh; 
       min-height: 48px;
-      border: none; 
-      border-radius: 0;
-      box-shadow: none;
+      /* Updated for Rounded Corners & Polish */
+      border: 1px solid var(--border); 
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7), inset 0 0 5px rgba(255, 255, 255, 0.05);
       transition: all 0.4s ease;
       position: relative;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 0.5vh; /* Adds spacing to look like a floating module */
+    }
+    .light-mode .dashboard-header {
+       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     
     .brand-area { display: flex; align-items: center; gap: 12px; }
@@ -349,7 +353,7 @@
           <path d="M16 7 L22 7 L22 13" />
         </svg>
         <h1 class="page-title">Global Market Pulse</h1>
-        <span class="user-name">Mithilesh Reddy's Dashboard</span>     
+        <span class="user-name">Mithilesh Reddy's Dashboard</span>      
       </div>
       <div class="system-status">
         <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
@@ -387,14 +391,23 @@
         <div class="asset-row"><span class="u-symbol">⚙️ Aluminum</span><div style="text-align:right"><span class="u-price" id="p-ali">--</span><span class="u-change" id="c-ali">--</span></div></div>
       </div>
 
-      <!-- Bonds (7 Rows - 4 Active) -->
+      <!-- Bonds & Volatility (Updated Section) -->
       <div class="asset-box">
+        <!-- Global Bonds Header -->
         <div class="asset-header"><span class="asset-title">Global Bonds</span></div>
-        <div class="asset-row"><span class="u-symbol">🇺🇸 US 10Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us10">--</span><span class="u-change" id="c-us10">--</span></div></div>
+        
         <div class="asset-row"><span class="u-symbol">🇺🇸 US 30Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us30">--</span><span class="u-change" id="c-us30">--</span></div></div>
+        <div class="asset-row"><span class="u-symbol">🇺🇸 US 10Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us10">--</span><span class="u-change" id="c-us10">--</span></div></div>
         <div class="asset-row"><span class="u-symbol">🇺🇸 US 5Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us5">--</span><span class="u-change" id="c-us5">--</span></div></div>
-        <div class="asset-row"><span class="u-symbol">🇺🇸 US 2Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us2">--</span><span class="u-change" id="c-us2">--</span></div></div>
-        <!-- Manual rows for India, Japan, UK 10Y removed as per user request to replace with automatic or remove -->
+        
+        <!-- Spacing -->
+        <div style="height: 0.5rem;"></div>
+
+        <!-- Volatility Header -->
+        <div class="asset-header"><span class="asset-title">Volatility (VIX)</span></div>
+        
+        <div class="asset-row"><span class="u-symbol">🇺🇸 US VIX</span><div style="text-align:right"><span class="u-price" id="p-vix">--</span><span class="u-change" id="c-vix">--</span></div></div>
+        <div class="asset-row"><span class="u-symbol">🇮🇳 Nifty VIX</span><div style="text-align:right"><span class="u-price" id="p-invix">--</span><span class="u-change" id="c-invix">--</span></div></div>
       </div>
 
       <!-- Crypto (21 Items / 3 Cols) -->
@@ -536,7 +549,7 @@
       document.getElementById('update-time').innerText = `🇮🇳 ${dateStr} • ${timeStr}`;
       
       fetchForex();
-      fetchBonds();
+      fetchBondsAndVix();
       fetchCrypto();
       fetchRealCommodities();
       fetchRealIndices();
@@ -584,16 +597,25 @@
       container.innerHTML = html;
     }
 
-    // --- BONDS ---
-    async function fetchBonds() {
-        const bondSyms = ["^TNX", "^TYX", "^FVX", "^IRX"];
+    // --- BONDS & VIX ---
+    async function fetchBondsAndVix() {
+        // IDs: ^TYX=30Y, ^TNX=10Y, ^FVX=5Y, ^VIX=US Vol, ^INDIAVIX=India Vol
+        const bondSyms = ["^TYX", "^TNX", "^FVX", "^VIX", "^INDIAVIX"];
         const data = await fetchYahooData(bondSyms);
         if(data) Object.assign(marketCache, data);
         
-        const map = { "^TNX": "us10", "^TYX": "us30", "^FVX": "us5", "^IRX": "us2" };
-        for (const [sym, id] of Object.entries(map)) {
+        // Bonds (Display with % suffix)
+        const bondMap = { "^TYX": "us30", "^TNX": "us10", "^FVX": "us5" };
+        for (const [sym, id] of Object.entries(bondMap)) {
             const d = marketCache[sym];
             if(d) updateUI(`p-${id}`, `c-${id}`, d.price, d.chg, '', '%', true); 
+        }
+
+        // VIX (Display as number, no % suffix on price)
+        const vixMap = { "^VIX": "vix", "^INDIAVIX": "invix" };
+        for (const [sym, id] of Object.entries(vixMap)) {
+            const d = marketCache[sym];
+            if(d) updateUI(`p-${id}`, `c-${id}`, d.price, d.chg, '', '%', false); 
         }
     }
 
@@ -717,29 +739,43 @@
 
     // --- Forex/Cmdty ---
     async function fetchForex() {
-      try {
-        // Added CNY to the list of currencies fetched
-        const fxRes = await fetch('https://api.frankfurter.app/latest?from=USD&to=INR,EUR,GBP,JPY,AUD,CNY');
-        const fxData = await fxRes.json();
-        if(fxData) {
-            updateUI('p-usdinr', 'c-usdinr', fxData.rates.INR, 0.05, '₹');
-            updateUI('p-eurusd', 'c-eurusd', 1/fxData.rates.EUR, -0.09, '$');
-            updateUI('p-gbpinr', 'c-gbpinr', (1/fxData.rates.GBP) * fxData.rates.INR, 0.15, '₹');
-            updateUI('p-jpyinr', 'c-jpyinr', (1/fxData.rates.JPY) * fxData.rates.INR, -0.02, '₹');
-            updateUI('p-audusd', 'c-audusd', 1/fxData.rates.AUD, 0.10, '$');
-            // Added automatic USD/CNY update
-            updateUI('p-usdcny', 'c-usdcny', fxData.rates.CNY, 0.01, '¥');
-        }
-        const dxyData = await fetchYahooData(["DX-Y.NYB"]);
-        if(dxyData["DX-Y.NYB"]) {
-             Object.assign(marketCache, dxyData);
-             updateUI('p-dxy', 'c-dxy', dxyData["DX-Y.NYB"].price, dxyData["DX-Y.NYB"].chg, '');
-        }
-      } catch (e) {}
+      // 1. Define Yahoo Finance symbols for all Currency Pairs
+      // INR=X is USD/INR, EURUSD=X is EUR/USD, etc.
+      const forexSyms = [
+          "INR=X",       // USD/INR
+          "EURUSD=X",    // EUR/USD
+          "GBPINR=X",    // GBP/INR
+          "JPYINR=X",    // JPY/INR
+          "AUDUSD=X",    // AUD/USD
+          "DX-Y.NYB",    // Dollar Index
+          "CNY=X"        // USD/CNY
+      ];
+
+      // 2. Fetch data using the existing Yahoo fetcher
+      const data = await fetchYahooData(forexSyms);
+      if(data) Object.assign(marketCache, data);
+
+      // 3. Map symbols to HTML IDs and Currencies
+      const map = {
+          "INR=X":    { id: "usdinr", curr: "₹" },
+          "EURUSD=X": { id: "eurusd", curr: "$" },
+          "GBPINR=X": { id: "gbpinr", curr: "₹" },
+          "JPYINR=X": { id: "jpyinr", curr: "₹" },
+          "AUDUSD=X": { id: "audusd", curr: "$" },
+          "DX-Y.NYB": { id: "dxy",    curr: ""  },
+          "CNY=X":    { id: "usdcny", curr: "¥" }
+      };
+
+      // 4. Update UI with REAL Price and REAL Change
+      for (const [sym, info] of Object.entries(map)) {
+          const d = marketCache[sym];
+          if(d) {
+              updateUI(`p-${info.id}`, `c-${info.id}`, d.price, d.chg, info.curr);
+          }
+      }
     }
 
     async function fetchRealCommodities() {
-      // Added ALI=F (Aluminum) to symbol list
       const symbols = ["GC=F", "SI=F", "CL=F", "BZ=F", "HG=F", "NG=F", "ALI=F"];
       const data = await fetchYahooData(symbols);
       if(data) Object.assign(marketCache, data);
