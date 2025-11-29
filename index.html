@@ -31,7 +31,7 @@
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    /* Light Theme Override - Professional Look (Kept the last professional light theme) */
+    /* Light Theme Override - Professional Look */
     .light-mode {
       --bg-body: #F6F8FA; 
       --bg-card: #ffffff;
@@ -83,18 +83,14 @@
       flex-shrink: 0; 
       height: 6vh; 
       min-height: 48px;
-      /* Removed all shadows, borders, and rounding for a clean look */
       border: none; 
       border-radius: 0;
       box-shadow: none;
       transition: all 0.4s ease;
       position: relative;
-      /* Add a single, thin bottom separator for a clean break */
       border-bottom: 1px solid var(--border);
     }
     
-    /* Removed the ::after block for the subtle line */
-
     .brand-area { display: flex; align-items: center; gap: 12px; }
     
     .page-title {
@@ -121,7 +117,7 @@
     .system-status { text-align: right; display: flex; align-items: center; gap: 0.75rem; }
 
     .theme-btn {
-      background: var(--bg-body); /* Slightly darker background for button */
+      background: var(--bg-body); 
       border: 1px solid var(--tertiary); 
       color: var(--secondary);
       cursor: pointer; padding: 6px; border-radius: 4px;
@@ -138,7 +134,7 @@
 
     .reload-timer {
       font-family: var(--font-mono); font-size: 0.75rem; color: var(--alpha-green);
-      background: rgba(0, 230, 118, 0.1); /* Vivid Green background subtle */
+      background: rgba(0, 230, 118, 0.1); 
       padding: 4px 10px; border-radius: 4px;
       border: 1px solid rgba(0, 230, 118, 0.3); min-width: 100px; text-align: center;
       display: block; font-weight: 500;
@@ -155,7 +151,7 @@
     }
     @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1); opacity: 1; } }
 
-    /* --- Text Utilities (No size changes) --- */
+    /* --- Text Utilities --- */
     .u-symbol {
       font-family: var(--font-sans); font-weight: 600; color: var(--primary);
       font-size: 0.7rem !important; display: flex; align-items: center; gap: 6px;
@@ -188,7 +184,6 @@
       height: 100%; 
       overflow: hidden; 
       transition: background 0.3s, box-shadow 0.3s;
-      /* Deep shadow for rich 3D lift effect - No Glow */
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7), inset 0 0 5px rgba(255, 255, 255, 0.05);
     }
     .light-mode .asset-box {
@@ -210,7 +205,7 @@
         letter-spacing: 0.15em; 
     }
 
-    /* Standard Row (Flexible 7-row system) */
+    /* Standard Row */
     .asset-row {
       display: flex; justify-content: space-between; align-items: center;
       height: 14.28%; 
@@ -251,10 +246,10 @@
 
     .global-stocks-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; height: 100%; overflow: hidden; }
 
-    /* ROW 3: Remaining Height - New Structure */
+    /* ROW 3: Remaining Height */
     .row-3-split {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 3fr; /* 1+1+1+3 layout */
+        grid-template-columns: 1fr 1fr 1fr 3fr; 
         gap: 0.5rem; 
         flex: 1; 
         min-height: 230px;
@@ -263,7 +258,7 @@
     
     .stocks-grid-3col {
       display: grid; 
-      grid-template-columns: repeat(3, 1fr); /* 3 Columns for 21 stocks */
+      grid-template-columns: repeat(3, 1fr); 
       gap: 0.5rem; 
       height: 100%;
       overflow: hidden; 
@@ -377,7 +372,7 @@
         <div class="asset-row"><span class="u-symbol">🇯🇵 JPY/INR</span><div style="text-align:right"><span class="u-price" id="p-jpyinr">--</span><span class="u-change" id="c-jpyinr">--</span></div></div>
         <div class="asset-row"><span class="u-symbol">🇦🇺 AUD/USD</span><div style="text-align:right"><span class="u-price" id="p-audusd">--</span><span class="u-change" id="c-audusd">--</span></div></div>
         <div class="asset-row"><span class="u-symbol">💵 DXY Index</span><div style="text-align:right"><span class="u-price" id="p-dxy">--</span><span class="u-change" id="c-dxy">--</span></div></div>
-        <div class="asset-row"><span class="u-symbol">🇨🇳 USD/CNY</span><div style="text-align:right"><span class="u-price">7.24</span><span class="u-change text-green">+0.01%</span></div></div>
+        <div class="asset-row"><span class="u-symbol">🇨🇳 USD/CNY</span><div style="text-align:right"><span class="u-price" id="p-usdcny">--</span><span class="u-change" id="c-usdcny">--</span></div></div>
       </div>
 
       <!-- Commodities (7 Rows) -->
@@ -389,19 +384,17 @@
         <div class="asset-row"><span class="u-symbol">🛢️ Brent Oil</span><div style="text-align:right"><span class="u-price" id="p-brent">--</span><span class="u-change" id="c-brent">--</span></div></div>
         <div class="asset-row"><span class="u-symbol">🥉 Copper</span><div style="text-align:right"><span class="u-price" id="p-copper">--</span><span class="u-change" id="c-copper">--</span></div></div>
         <div class="asset-row"><span class="u-symbol">🔥 Nat Gas</span><div style="text-align:right"><span class="u-price" id="p-ng">--</span><span class="u-change" id="c-ng">--</span></div></div>
-        <div class="asset-row"><span class="u-symbol">⚙️ Aluminum</span><div style="text-align:right"><span class="u-price">$2,630</span><span class="u-change text-green">+0.45%</span></div></div>
+        <div class="asset-row"><span class="u-symbol">⚙️ Aluminum</span><div style="text-align:right"><span class="u-price" id="p-ali">--</span><span class="u-change" id="c-ali">--</span></div></div>
       </div>
 
-      <!-- Bonds (7 Rows) -->
+      <!-- Bonds (7 Rows - 4 Active) -->
       <div class="asset-box">
         <div class="asset-header"><span class="asset-title">Global Bonds</span></div>
         <div class="asset-row"><span class="u-symbol">🇺🇸 US 10Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us10">--</span><span class="u-change" id="c-us10">--</span></div></div>
         <div class="asset-row"><span class="u-symbol">🇺🇸 US 30Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us30">--</span><span class="u-change" id="c-us30">--</span></div></div>
         <div class="asset-row"><span class="u-symbol">🇺🇸 US 5Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us5">--</span><span class="u-change" id="c-us5">--</span></div></div>
         <div class="asset-row"><span class="u-symbol">🇺🇸 US 2Y Yld</span><div style="text-align:right"><span class="u-price" id="p-us2">--</span><span class="u-change" id="c-us2">--</span></div></div>
-        <div class="asset-row"><span class="u-symbol">🇮🇳 India 10Y</span><div style="text-align:right"><span class="u-price">7.15%</span><span class="u-change text-green">+0.01%</span></div></div>
-        <div class="asset-row"><span class="u-symbol">🇯🇵 Japan 10Y</span><div style="text-align:right"><span class="u-price">0.98%</span><span class="u-change text-green">+0.02%</span></div></div>
-        <div class="asset-row"><span class="u-symbol">🇬🇧 UK 10Y</span><div style="text-align:right"><span class="u-price">4.21%</span><span class="u-change text-red">-0.05%</span></div></div>
+        <!-- Manual rows for India, Japan, UK 10Y removed as per user request to replace with automatic or remove -->
       </div>
 
       <!-- Crypto (21 Items / 3 Cols) -->
@@ -449,7 +442,7 @@
       </div>
     </div>
 
-    <!-- ROW 3 (Remaining Space - New Structure) -->
+    <!-- ROW 3 (Remaining Space) -->
     <div class="row-3-split">
       <!-- New Table 1: Capital Markets -->
       <div class="asset-box">
@@ -494,41 +487,40 @@
       document.getElementById('icon-sun').style.display = isLight ? 'block' : 'none';
     }
 
-    // --- CONFIG: Stock Lists (Redistributed) ---
+    // --- CONFIG: Stock Lists ---
     
     // Custom Watch List (21 Stocks - 3 Cols x 7 Rows)
-    // Mixed: Favorites + Multibagger Growth (Mid/Small/Growth)
     const STOCK_LIST_MAIN = [
-      // Col 1 (7) - Essentials & Banking
+      // Col 1 (7)
       { sym: "SBIN.NS", name: "🇮🇳 SBI" }, { sym: "BHARTIARTL.NS", name: "🇮🇳 Airtel" },
       { sym: "AXISBANK.NS", name: "🇮🇳 Axis Bank" }, { sym: "SUNPHARMA.NS", name: "🇮🇳 Sun Pharma" },
       { sym: "LICI.NS", name: "🇮🇳 LIC India" }, { sym: "CANBK.NS", name: "🇮🇳 Canara Bank" }, { sym: "GICRE.NS", name: "🇮🇳 GIC Re" },
-      // Col 2 (7) - Midcap Growth & Consumption
+      // Col 2 (7)
       { sym: "AUBANK.NS", name: "🇮🇳 AU Bank" }, { sym: "VBL.NS", name: "🇮🇳 Varun Bev" },
       { sym: "TITAGARH.NS", name: "🇮🇳 Titagarh" }, { sym: "WONDERLA.NS", name: "🇮🇳 Wonderla" },
       { sym: "HERITGFOOD.NS", name: "🇮🇳 Heritage" }, { sym: "RVNL.NS", name: "🇮🇳 RVNL" }, { sym: "IREDA.NS", name: "🇮🇳 IREDA" },
-      // Col 3 (7) - High Growth & New Age
+      // Col 3 (7)
       { sym: "KAYNES.NS", name: "🇮🇳 Kaynes Tech" }, { sym: "JIOFIN.NS", name: "🇮🇳 Jio Fin" },
       { sym: "TRENT.NS", name: "🇮🇳 Trent" }, { sym: "SUZLON.NS", name: "🇮🇳 Suzlon" },
       { sym: "DIXON.NS", name: "🇮🇳 Dixon Tech" }, { sym: "MAZDOCK.NS", name: "🇮🇳 Mazagon" }, { sym: "TATAPOWER.NS", name: "🇮🇳 Tata Power" }
     ];
 
-    // Sector 1: Capital Markets (Custom Order)
+    // Sector 1: Capital Markets
     const STOCK_LIST_CAPITAL = [
-      { sym: "GROWW.NS", name: "🇮🇳 Groww" }, // User requested (Billionbrains)
+      { sym: "GROWW.NS", name: "🇮🇳 Groww" }, 
       { sym: "ANGELONE.NS", name: "🇮🇳 Angel One" },
       { sym: "CDSL.NS", name: "🇮🇳 CDSL" }, { sym: "BSE.NS", name: "🇮🇳 BSE" },
       { sym: "HDFCAMC.NS", name: "🇮🇳 HDFC AMC" }, { sym: "NAM-INDIA.NS", name: "🇮🇳 Nippon Life" }, { sym: "CAMS.NS", name: "🇮🇳 CAMS" }
     ];
 
-    // Sector 2: Auto Sector (7 Stocks)
+    // Sector 2: Auto Sector
     const STOCK_LIST_AUTO = [
       { sym: "MARUTI.NS", name: "🇮🇳 Maruti" }, { sym: "TATAMOTORS.NS", name: "🇮🇳 Tata Motors" },
       { sym: "M&M.NS", name: "🇮🇳 M&M" }, { sym: "BAJAJ-AUTO.NS", name: "🇮🇳 Bajaj Auto" },
       { sym: "EICHERMOT.NS", name: "🇮🇳 Eicher" }, { sym: "HEROMOTOCO.NS", name: "🇮🇳 Hero Moto" }, { sym: "TVSMOTOR.NS", name: "🇮🇳 TVS Motor" }
     ];
 
-    // Sector 3: IT Sector (7 Stocks)
+    // Sector 3: IT Sector
     const STOCK_LIST_IT = [
       { sym: "TCS.NS", name: "🇮🇳 TCS" }, { sym: "INFY.NS", name: "🇮🇳 Infosys" },
       { sym: "HCLTECH.NS", name: "🇮🇳 HCL Tech" }, { sym: "WIPRO.NS", name: "🇮🇳 Wipro" },
@@ -538,7 +530,6 @@
     async function updateMarketData() {
       timeLeft = REFRESH_INTERVAL;
       
-      // Update Date & Time with India Symbol
       const now = new Date();
       const dateStr = now.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
       const timeStr = now.toLocaleTimeString();
@@ -554,21 +545,18 @@
 
     // --- STOCKS FETCHER ---
     async function fetchStocks() {
-      // Collect all symbols to fetch in one go
       const allLists = [...STOCK_LIST_MAIN, ...STOCK_LIST_CAPITAL, ...STOCK_LIST_AUTO, ...STOCK_LIST_IT];
       const symbols = allLists.map(s => s.sym);
       const data = await fetchYahooData(symbols);
       if (data && Object.keys(data).length > 0) Object.assign(marketCache, data);
 
-      // Render 3 New Single Tables
       renderIndicesList('sector-1-body', STOCK_LIST_CAPITAL, '₹');
       renderIndicesList('sector-2-body', STOCK_LIST_AUTO, '₹');
       renderIndicesList('sector-3-body', STOCK_LIST_IT, '₹');
 
-      // Render Main Stocks Watch (3 Cols)
       const container = document.getElementById('stocks-grid-container');
       let html = '';
-      const cols = [[], [], []]; // 3 Columns
+      const cols = [[], [], []]; 
       STOCK_LIST_MAIN.forEach((stock, i) => { cols[i % 3].push(stock); });
 
       cols.forEach(colData => {
@@ -605,17 +593,16 @@
         const map = { "^TNX": "us10", "^TYX": "us30", "^FVX": "us5", "^IRX": "us2" };
         for (const [sym, id] of Object.entries(map)) {
             const d = marketCache[sym];
-            /* Fix: Add "%" suffix to price for bond yields */
             if(d) updateUI(`p-${id}`, `c-${id}`, d.price, d.chg, '', '%', true); 
         }
     }
 
     // --- INDICES & GLOBAL STOCKS ---
     async function fetchRealIndices() {
-      // Global Indices (7)
+      // Global Indices
       const globalSyms = ["^GSPC", "^IXIC", "^DJI", "^N225", "^GDAXI", "^FTSE", "^HSI"];
       
-      // Global Stocks (21)
+      // Global Stocks
       const gsSyms1 = ["AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "META", "TSLA"];
       const gsNames1 = ["🇺🇸 Apple", "🇺🇸 Microsoft", "🇺🇸 Nvidia", "🇺🇸 Google", "🇺🇸 Amazon", "🇺🇸 Meta", "🇺🇸 Tesla"];
       
@@ -731,15 +718,17 @@
     // --- Forex/Cmdty ---
     async function fetchForex() {
       try {
-        const fxRes = await fetch('https://api.frankfurter.app/latest?from=USD&to=INR,EUR,GBP,JPY,AUD');
+        // Added CNY to the list of currencies fetched
+        const fxRes = await fetch('https://api.frankfurter.app/latest?from=USD&to=INR,EUR,GBP,JPY,AUD,CNY');
         const fxData = await fxRes.json();
         if(fxData) {
-            // Using dummy changes for a richer look since real-time change data is not available from this simple API
             updateUI('p-usdinr', 'c-usdinr', fxData.rates.INR, 0.05, '₹');
             updateUI('p-eurusd', 'c-eurusd', 1/fxData.rates.EUR, -0.09, '$');
             updateUI('p-gbpinr', 'c-gbpinr', (1/fxData.rates.GBP) * fxData.rates.INR, 0.15, '₹');
             updateUI('p-jpyinr', 'c-jpyinr', (1/fxData.rates.JPY) * fxData.rates.INR, -0.02, '₹');
             updateUI('p-audusd', 'c-audusd', 1/fxData.rates.AUD, 0.10, '$');
+            // Added automatic USD/CNY update
+            updateUI('p-usdcny', 'c-usdcny', fxData.rates.CNY, 0.01, '¥');
         }
         const dxyData = await fetchYahooData(["DX-Y.NYB"]);
         if(dxyData["DX-Y.NYB"]) {
@@ -750,11 +739,16 @@
     }
 
     async function fetchRealCommodities() {
-      const symbols = ["GC=F", "SI=F", "CL=F", "BZ=F", "HG=F", "NG=F"];
+      // Added ALI=F (Aluminum) to symbol list
+      const symbols = ["GC=F", "SI=F", "CL=F", "BZ=F", "HG=F", "NG=F", "ALI=F"];
       const data = await fetchYahooData(symbols);
       if(data) Object.assign(marketCache, data);
       
-      const map = { "GC=F": "gold", "SI=F": "silver", "CL=F": "wti", "BZ=F": "brent", "HG=F": "copper", "NG=F": "ng" };
+      const map = { 
+        "GC=F": "gold", "SI=F": "silver", "CL=F": "wti", "BZ=F": "brent", 
+        "HG=F": "copper", "NG=F": "ng", "ALI=F": "ali" 
+      };
+      
       for (const [sym, id] of Object.entries(map)) {
         const d = marketCache[sym];
         if(d) updateUI(`p-${id}`, `c-${id}`, d.price, d.chg, '$');
@@ -787,7 +781,7 @@
       const elPrice = document.getElementById(pId);
       const elChg = document.getElementById(cId);
       if(elPrice && elChg) {
-        // Price formatting: Add suffix if priceSuffix is true
+        // Price formatting
         const formattedPrice = val.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         elPrice.innerText = pre + formattedPrice + (priceSuffix ? '%' : '');
         
