@@ -2,7 +2,8 @@
 
 Global Market Pulse is a personalized, high-polish financial dashboard designed for maximum focus in an ultra-dark, luxury aesthetic.
 
-<img width="2560" height="1440" alt="Screenshot 2025-11-29 at 12 51 12" src="https://github.com/user-attachments/assets/b65d0dff-2442-4668-8749-8647b094eca3" />
+<img width="2560" height="1440" alt="Screenshot 2025-11-29 at 17 19 54" src="https://github.com/user-attachments/assets/fc7ce351-68a1-4003-8ea1-4170ed6af2b0" />
+<img width="2560" height="1440" alt="Screenshot 2025-11-29 at 17 20 06" src="https://github.com/user-attachments/assets/92097a3d-1817-4ff6-86f4-92f5db4e5174" />
 
 
 # Key Features
